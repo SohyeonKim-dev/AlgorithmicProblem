@@ -22,7 +22,7 @@ int findingMajorNumber(const vector<int> &Vec) {
 			majority = array;
 		}
 	}
-	return majority;sss
+	return majority;
 }
 
 int findingMajorNumber2(const vector<int>& Vec) {
