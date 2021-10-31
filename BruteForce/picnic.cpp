@@ -2,21 +2,21 @@
 
 //wrongSolution
 
-int n; // í•™ìƒì˜ ìˆ˜
-bool areFriends[10][10]; // ì„œë¡œ ì¹œêµ¬ì¸ì§€ 2ì°¨ì› ë°°ì—´ë¡œ í‘œí˜„
+int n; // ÇĞ»ıÀÇ ¼ö
+bool areFriends[10][10]; // ¼­·Î Ä£±¸ÀÎÁö 2Â÷¿ø ¹è¿­·Î Ç¥Çö
 
-int countPairings(bool taken[10]) { // taken[i] => ië²ˆì§¸ ì• ê°€ ì§ê¿ì„ ì°¾ì•˜ëŠ”ê°€? 
+int countPairings(bool taken[10]) { // taken[i] => i¹øÂ° ¾Ö°¡ Â¦²áÀ» Ã£¾Ò´Â°¡? 
 
-	bool finished = true; // ì¬ê·€ í˜¸ì¶œì˜ ê¸°ì € ì‚¬ë¡€: ë‹¤ ì¹œêµ¬ë¥¼ ì°¾ì•˜ë‹¤ë©´ ì¢…ë£Œí•˜ë¼
+	bool finished = true; // Àç±Í È£ÃâÀÇ ±âÀú »ç·Ê: ´Ù Ä£±¸¸¦ Ã£¾Ò´Ù¸é Á¾·áÇÏ¶ó
 	
 	for (int i = 0; i < n; ++i) {
-		if (taken[i] != true) { // ì¹œêµ¬ê°€ ì—†ëŠ” ì• ê°€ ìˆë‹¤ë©´ ì•„ì§ ëë‚˜ì§€ ì•Šì•˜ë‹¤! (ì¬ê·€ ë°˜ë³µ í˜¸ì¶œì˜ ì¡°ê±´)
+		if (taken[i] != true) { // Ä£±¸°¡ ¾ø´Â ¾Ö°¡ ÀÖ´Ù¸é ¾ÆÁ÷ ³¡³ªÁö ¾Ê¾Ò´Ù! (Àç±Í ¹İº¹ È£ÃâÀÇ Á¶°Ç)
 			finished = false;
 		}
 	}
 
 	if (finished == true) {
-		return 1; // ê¸°ì €ì˜ ì²˜ë¦¬
+		return 1; // ±âÀúÀÇ Ã³¸®
 	}
 
 	int ret = 0;
@@ -24,26 +24,26 @@ int countPairings(bool taken[10]) { // taken[i] => ië²ˆì§¸ ì• ê°€ ì§ê¿ì„ ì°¾ì
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < n; ++j) {
 			if (taken[i] != true && taken[j] != true && areFriends[i][j] == true) { 
-				// iì™€ jëŠ” ì•„ì§ ì§ì´ ì—†ìœ¼ë‚˜, ì„œë¡œ ì¹œí•˜ë‹¤! -> ì¹œêµ¬ë¡œ ë§Œë“¤ì–´ë¼.
+				// i¿Í j´Â ¾ÆÁ÷ Â¦ÀÌ ¾øÀ¸³ª, ¼­·Î Ä£ÇÏ´Ù! -> Ä£±¸·Î ¸¸µé¾î¶ó.
 
 				taken[i] = true;
 				taken[j] = true;
 				ret += countPairings(taken);
 				taken[i] = false; 
-				taken[j] = false; // ì¬ê·€ í˜¸ì¶œ ì´í›„ì˜ ì²˜ë¦¬ (why?)
+				taken[j] = false; // Àç±Í È£Ãâ ÀÌÈÄÀÇ Ã³¸® (why?)
 			}
 		}
 	}
-	return ret; // ë­”ê°€ ì¢€ ì´ìƒí•œë°? 
+	return ret; // ¹º°¡ Á» ÀÌ»óÇÑµ¥? 
 }
 
 
 // rightSolution
 
-int countingPairings(bool taken[10]) { // 10ê°œì˜ ë°°ì—´ë¡œ ì§ ì—¬ë¶€ íŒë‹¨ 
+int countingPairings(bool taken[10]) { // 10°³ÀÇ ¹è¿­·Î Â¦ ¿©ºÎ ÆÇ´Ü 
 	int firstFree = -1;
 
-	for (int i = 0; i < n; ++i) {
+	for (int i = 0; i < n; ++i) { // ¾Õ ÂÊ ¾ÆÀÌºÎÅÍ Ä£±¸¸¦ Ã£´Â´Ù. 
 		if (taken[i] != true) {
 			firstFree = i;
 			break;
@@ -58,9 +58,11 @@ int countingPairings(bool taken[10]) { // 10ê°œì˜ ë°°ì—´ë¡œ ì§ ì—¬ë¶€ íŒë‹¨
 
 	for (int pairWith = firstFree + 1; pairWith < n; ++pairWith) {
 		if (taken[pairWith] != true && areFriends[firstFree][pairWith]) {
+			// i¹øÂ° ¾ÆÀÌ(firstFree)°¡ Â¦ÀÌ ¾ø°í, °Â ÀÌÈÄÀÇ ¾Ö(pairwith)°¡ Ä£±¸ÀÌ¸é¼­ Â¦ÀÌ ¾øÀ» ¶§
+
 			taken[firstFree] = true;
 			taken[pairWith] = true;
-			ret += countingPairings(taken);
+			ret += countingPairings(taken); // Àç±Í È£Ãâ
 			taken[firstFree] = false;
 			taken[pairWith] = false;
 		}
