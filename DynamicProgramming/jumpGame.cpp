@@ -9,7 +9,7 @@ int board[100][100];
 
 bool jump(int y, int x) {
 	if (y >= n || x >= n) {
-		return false; // ¿©±â¼­  °É·¯ÁÖ±â ¶§¹®¿¡ ¾Æ·¡ ¹İÈ¯°ú °°Àº Á¡È­½ÄÀÌ ¼º¸³ÇÑ´Ù. 
+		return false; // ì—¬ê¸°ì„œ  ê±¸ëŸ¬ì£¼ê¸° ë•Œë¬¸ì— ì•„ë˜ ë°˜í™˜ê³¼ ê°™ì€ ì í™”ì‹ì´ ì„±ë¦½í•œë‹¤. 
 	}
 	if (y == n - 1 || x == n - 1) {
 		return true;
@@ -33,7 +33,7 @@ bool jump2(int y, int x) {
 		return 1;
 	}
 
-	//¸Ş¸ğÀÌÁ¦ÀÌ¼Ç
+	//ë©”ëª¨ì´ì œì´ì…˜
 	int& ret = cache[y][x];
 	if (ret != -1) {
 		return ret;
