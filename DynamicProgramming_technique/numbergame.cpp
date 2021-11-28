@@ -49,8 +49,11 @@ int cache[50][50];
 int play(int left, int right) {
 	if (left > right) {
 		return 0;
+		// 기저 사례
 	}
+
 	int& ret = cache[left][right];
+	// 메모이제이션
 
 	if (ret != EMPTY) {
 		return ret;
@@ -60,12 +63,16 @@ int play(int left, int right) {
 	ret = max(
 		board[left] - play(left + 1, right),
 		board[right] - play(left, right-1)
+		// 내가 원하는 값을 구하고 싶다면 앞뒤의 play 값에 -를 취하면 된다.
 		);
 
 	//수를 제거하는 경우
 	if (right - left + 1 >= 2) {
-		ret = max(ret, -play(left + 2, right));
+		ret = max(ret, -play(left + 2, right)); 
+		// 왼쪽 두 개 삭제
 		ret = max(ret, -play(left, right - 2));
+		// 오른쪽 두 개 삭제
+		// 인덱스의 2칸 이동으로 삭제하는 과정을 표현한다.
 	}
 	return ret;
 }
